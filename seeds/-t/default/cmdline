@@ -1,0 +1,6 @@
+10000
+--
+./advancecomp-2.0
+-l
+@@
+/queries_dataset/advmng.smt2
