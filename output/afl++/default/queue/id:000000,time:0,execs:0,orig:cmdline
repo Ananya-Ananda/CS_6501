@@ -1,0 +1,5 @@
+10000
+--
+./binutils/objdump
+-S
+/queries_dataset/advmng.smt2

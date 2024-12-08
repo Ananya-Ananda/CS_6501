@@ -1,0 +1,59 @@
+#!/bin/bash
+set -euo pipefail
+
+VERSION="0.6"
+
+if [ "$1" == "--version" ]; then
+  echo $VERSION
+  exit
+fi
+
+BENCHMARK=$1
+
+CC="${CC:-clang-6.0}"
+CXX="${CXX:-clang++-6.0}"
+LINKER="${LINKER:-llvm-link-6.0}"
+MM="${MM:-64}"
+
+PROJECT_DIR=$(readlink -f "$(dirname "$0")"/..)
+
+echo RunKluzzer from $PROJECT_DIR
+ls $PROJECT_DIR/kluzzer
+
+KLEE_RUNTIME_LIBRARY_PATH="${KLEE_RUNTIME_LIBRARY_PATH:-$PROJECT_DIR/kluzzer/lib/klee/runtime}" 
+KLUZZER="${KLUZZER:-$PROJECT_DIR/kluzzer/bin/kluzzer}"
+
+mkdir -p output
+
+FUZZ_TARGET=$BENCHMARK
+FUZZ_BITCODE="output/$(basename "$BENCHMARK").fuzz.bc"
+KLUZZ_BITCODE="output/$(basename "$BENCHMARK").kluzz.bc"
+KLUZZ_OUTDIR="output/kluzzer_out_$(basename "$BENCHMARK")"
+
+FUZZ_SIZE=256
+HARD_LIMIT=500000
+
+NO_WARNINGS="-Wno-parentheses-equality -Wno-implicit-function-declaration -Wno-unknown-attributes"
+
+$CC  -m${MM} -emit-llvm -g -fsanitize-coverage=trace-pc-guard $NO_WARNINGS "$FUZZ_TARGET" -c -o "$FUZZ_BITCODE"
+$CXX -m${MM} -emit-llvm -DFUZZ_SIZE=$FUZZ_SIZE -DHARD_LIMIT=$HARD_LIMIT ${PROJECT_DIR}/kluzzer/KluzzerLimits.cpp -c -o output/KluzzerLimits.bc
+$LINKER "$FUZZ_BITCODE" $PROJECT_DIR/kluzzer/KluzzerRuntime${MM}.bc output/KluzzerLimits.bc -o "$KLUZZ_BITCODE"
+
+
+CORPUS=test-suite
+METADATA_TEMPLATE="$PROJECT_DIR"/bin/metadata_template.xml
+
+if [ ! -f $CORPUS/metadata.xml ]; then
+  echo "Kluzzer was unexpectedly faster?!"	
+  HASH=$(sha256sum $BENCHMARK | awk '{print $1}')
+  cd output
+  rm $CORPUS -rf
+  mkdir -p $CORPUS
+  sed -e "s/__VER__/$VERSION/g" -e "s#__FILE__#$BENCHMARK#g" -e "s/__HASH__/$HASH/g" -e "s/__TIME__/$(date)/g" ${METADATA_TEMPLATE} > $CORPUS/metadata.xml
+  cd ..
+fi
+
+export KLEE_RUNTIME_LIBRARY_PATH="${KLEE_RUNTIME_LIBRARY_PATH}"
+ulimit -Sv 4000000
+$KLUZZER --version
+$KLUZZER -libc=klee -silent-mode -forbidden-externals="fgetc fread" -allow-external-sym-calls -max-solver-time=10 -simplify-sym-indices -disable-inlining -output-dir=output/"$CORPUS" -optimize "$KLUZZ_BITCODE" || true

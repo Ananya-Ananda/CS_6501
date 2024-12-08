@@ -1,0 +1,8 @@
+# environment variables:
+AFL_CUSTOM_INFO_PROGRAM=../../seeds/small_exec.elf
+AFL_CUSTOM_INFO_PROGRAM_ARGV=-Q ../../benchmarks/readelf.c
+AFL_CUSTOM_INFO_OUT=../../output/afl++//default
+AFL_DEBUG=1
+AFL_MAP_SIZE=100000000
+# command line:
+'./afl-fuzz' '-Q' '-i' '../../benchmarks/' '-o' '../../output/afl++/' '--' '../../seeds/small_exec.elf' '-Q' '../../benchmarks/readelf.c'

@@ -1,0 +1,8 @@
+# environment variables:
+AFL_CUSTOM_INFO_PROGRAM=./testc
+AFL_CUSTOM_INFO_PROGRAM_ARGV=
+AFL_CUSTOM_INFO_OUT=../../output/afl++/testc/default
+AFL_DEBUG=1
+AFL_MAP_SIZE=20000000
+# command line:
+'afl-fuzz' '-i' '../../benchmarks/in/' '-o' '../../output/afl++/testc' '--' './testc'
