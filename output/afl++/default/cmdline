@@ -1,0 +1,3 @@
+../../seeds/small_exec.elf
+-Q
+../../benchmarks/readelf.c

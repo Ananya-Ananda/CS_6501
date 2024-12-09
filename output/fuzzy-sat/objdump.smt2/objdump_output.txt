@@ -1,0 +1,29 @@
+   query 992/992                                                                                                                                                                             
+ o-------------------------------------------------------------o                                                                                                                             
+ | num eval:   412845        sat:        147 (1) [727 opt]     |                                                                                                                             
+ |                                                             |                                                                                                                             
+ | its:        91            its ext:    14                    |                                                                                                                             
+ | sm:         8             bf:         11                    |                                                                                                                             
+ | rbf:        4             rbf opt:    6                     |                                                                                                                             
+ | gd:         0             havoc:      0                     |                                                                                                                             
+ | bit flips:  8, 0, 0       byte flips: 0, 0, 0, 0            |                                                                                                                             
+ | arithms:    0             ints:       0                     |                                                                                                                             
+ | multigoal:  5             fallbacks:  182 (1196)si (115)nt  |                                                                                                                             
+ |                                                             |                                                                                                                             
+ | # confl:          1203    # univ def:          0            |                                                                                                                             
+ | confl cache size: 198     ast info cache size: 5378         |                                                                                                                             
+ | num timeouts:     0       ast info cache hits: 6387         |                                                                                                                             
+ |                                                             |                                                                                                                             
+ | avg eval time: 2.110 usec                                   |                                                                                                                             
+ o-------------------------------------------------------------o                                                                                                                             
+
+num queries:      992
+fast sat queries: 147
+elaps time:       1.338 s
+elaps time sat:   0.013 s
+elaps par:        1.251 s
+elaps time + par: 2.589 s
+
+real    0m39.375s
+user    0m7.901s
+sys     0m21.641s

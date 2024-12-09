@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE test-metadata PUBLIC "+//IDN sosy-lab.org//DTD test-format test-metadata 1.1//EN" "https://sosy-lab.org/test-format/test-metadata-1.1.dtd">
+<test-metadata>
+  <sourcecodelang>C</sourcecodelang>
+  <producer>LibKluzzer 0.6</producer>
+  <specification>COVER( init(main()), FQL(COVER EDGES(@DECISIONEDGE))</specification>
+  <programfile>../../benchmarks/test.c</programfile>
+  <programhash>5cde39bb118627af4153efca34f3dbfebb7432a5f6441a8293141d03686158a2</programhash>
+  <entryfunction>main</entryfunction>
+  <architecture>32bit</architecture>
+  <creationtime>Sun Dec  8 12:25:15 EST 2024</creationtime>
+</test-metadata>

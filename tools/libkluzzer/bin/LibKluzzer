@@ -1,0 +1,62 @@
+#!/bin/bash
+set -euo pipefail
+
+VERSION="0.6"
+
+if [ "$1" == "--version" ]; then
+  echo $VERSION
+  exit
+fi
+
+if [ "$1" == "--64" ]; then
+  echo "64-bit benchmark"
+  BENCHMARK=$2
+else
+  echo "32-bit benchmark"
+  BENCHMARK=$1
+fi
+
+CC="${CC:-clang}"
+CXX="${CXX:-clang++}"
+MM="${MM:-64}"
+
+PROJECT_DIR=$(readlink -f "$(dirname "$0")"/..)
+
+mkdir -p output
+
+CORPUS=test-suite
+METADATA_TEMPLATE="$PROJECT_DIR"/bin/metadata_template.xml
+HASH=$(sha256sum $BENCHMARK | awk '{print $1}')
+
+cd output
+rm $CORPUS -rf
+mkdir -p $CORPUS
+sed -e "s/__VER__/$VERSION/g" -e "s#__FILE__#$BENCHMARK#g" -e "s/__HASH__/$HASH/g" -e "s/__TIME__/$(date)/g" ${METADATA_TEMPLATE} > $CORPUS/metadata.xml
+cd ..
+
+$PROJECT_DIR/bin/RunKluzzer $BENCHMARK &
+
+trap "killall kluzzer" SIGTERM
+
+FUZZ_TARGET="output/$(basename "$BENCHMARK").fuzz.c"
+sed -r "s/ main *\(.*\)/ __FuzzMe()/g" "$BENCHMARK" > "$FUZZ_TARGET"
+sed -i -r "s/^main *\(.*\)/__FuzzMe()/g" "$FUZZ_TARGET"
+sed -i -e "s/exit(0);/__fuzzer_intercepted_exit(0);/g" "$FUZZ_TARGET"
+sed -i -e "s/exit(1);/__fuzzer_intercepted_exit(1);/g" "$FUZZ_TARGET"
+sed -i -e "s/sizeof(\*argv)/sizeof(char *)/g" "$FUZZ_TARGET"
+sed -i -e "s/sizeof(\*(\*argv))/sizeof(char)/g" "$FUZZ_TARGET"
+python "$PROJECT_DIR"/bin/ExtractVariables.py "$BENCHMARK" >> "$FUZZ_TARGET"
+FUZZ_BINARY="$(basename "$BENCHMARK")_LibKluzzer${MM}"
+
+NO_WARNINGS="-Wno-parentheses-equality -Wno-implicit-function-declaration -Wno-unknown-attributes"
+
+$CC  -m${MM} -O2 -g -fsanitize=address,fuzzer-no-link -fno-omit-frame-pointer $NO_WARNINGS "$FUZZ_TARGET" -c -o "$FUZZ_TARGET".o
+$CXX -m${MM} -O2 -g -fsanitize=address -fno-omit-frame-pointer -o output/${FUZZ_BINARY} "$FUZZ_TARGET".o "$PROJECT_DIR"/lib/libFuzzer${MM}.a -pthread
+
+cd output
+./${FUZZ_BINARY} $CORPUS -use_value_profile=1 -rss_limit_mb=4500 -max_len=1024 &
+sleep 1
+./${FUZZ_BINARY} $CORPUS -use_value_profile=0 -rss_limit_mb=4500 -max_len=1048576 -min_sbm_time=60 &
+cd ..
+
+wait
