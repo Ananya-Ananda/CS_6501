@@ -4,42 +4,37 @@ from pathlib import Path
 
 # Define the tools and their configurations
 TOOLS = {
-    "HFL": "path_to_hfl_executable",
-    "LeanSym": "path_to_leansym_executable",
-    "FuzzySat": "path_to_fuzzysat_executable",
-    "LibKluzzer": "path_to_libkluzzer_executable",
-    "AFL++_QSYM": "path_to_afl_qsym_executable",
+    "FuzzySat": "./tools/fuzzy-sat/bin/tools/fuzzy-sat",
+    "LibKluzzer": "./tools/libkluzzer",
+    "AFL++_QSYM": "./tools/AFLplusplus",
 }
 
 # Define the benchmarks and their directories
 BENCHMARKS = {
-    "advmng": "path_to_advmng_executable",
-    "bloaty": "path_to_bloaty_executable",
-    "objdump": "path_to_objdump_executable",
-    "optipng": "path_to_optipng_executable",
-    "readelf": "path_to_readelf_executable",
+    "advmng": "./benchmarks/advmng.smt2",
+    "bloaty": "./benchmarks/bloaty.smt2",
+    "objdump": "./benchmarks/objdump.smt2",
+    "optipng": "./benchmarks/optipng.smt2",
+    "readelf": "./benchmarks/bloaty.smt2",
 }
 
-# Directory containing seeds
-SEEDS_DIR = Path("seeds/")
-RESULTS_DIR = Path("results/")
+SEEDS_DIR = Path("./seeds/")
+RESULTS_DIR = Path("./output/")
 
 def run_tool(tool_name, tool_path, benchmark_name, benchmark_path, seeds_dir, output_dir):
-    """
-    Run a tool on a benchmark with the given seeds and output results.
-    """
-    output_dir.mkdir(parents=True, exist_ok=True)  # Create output directory if it doesn't exist
+    # Run each tool on benchmarks w/ corresponding seeds
+
+    output_dir.mkdir(parents=True, exist_ok=True) 
     
     command = [
-        tool_path,                 # Path to the tool executable
-        "-i", str(seeds_dir),      # Input seeds directory
-        "-o", str(output_dir),     # Output directory for results
-        "--", str(benchmark_path)  # Benchmark executable
+        tool_path,                 
+        "-i", str(seeds_dir),      
+        "-o", str(output_dir),    
+        "--", str(benchmark_path) 
     ]
     
     print(f"Running {tool_name} on {benchmark_name}...")
     try:
-        # Execute the command
         subprocess.run(command, check=True)
         print(f"{tool_name} completed for {benchmark_name}. Results saved in {output_dir}")
     except subprocess.CalledProcessError as e:
@@ -48,7 +43,6 @@ def run_tool(tool_name, tool_path, benchmark_name, benchmark_path, seeds_dir, ou
 def main():
     for tool_name, tool_path in TOOLS.items():
         for benchmark_name, benchmark_path in BENCHMARKS.items():
-            # Define the output directory for results
             output_dir = RESULTS_DIR / tool_name / benchmark_name
             run_tool(tool_name, tool_path, benchmark_name, benchmark_path, SEEDS_DIR / benchmark_name, output_dir)
 

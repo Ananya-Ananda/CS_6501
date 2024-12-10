@@ -1,6 +1,6 @@
 # Symbolic Fuzzing Tools and Benchmark Usage Guide
 
-This README provides a comprehensive guide for setting up and running benchmarks using **Fuzzy-SAT**, **AFL++**, **QSYM**, and **LibKluzzer**. The benchmarks include `objdump`, `readelf`, `advmng`, and `optipng`. Each tool's setup and benchmark-specific commands are detailed below.
+A guide for setting up and running benchmarks using **Fuzzy-SAT**, **AFL++ w/QSYM**, and **LibKluzzer**. The benchmarks include `objdump`, `readelf`, `advmng`, and `optipng`. Each tool's setup and benchmark-specific commands are detailed below.
 
 ---
 
@@ -8,7 +8,10 @@ This README provides a comprehensive guide for setting up and running benchmarks
 
 Ensure the following directory structure is in place:
 
-benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) seeds/ # Contains seed files (e.g., small_exec.elf). output/ # Directory to store outputs for each tool.
+benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) 
+seeds/ # Contains seed files (e.g., small_exec.elf)
+output/ # Directory to store outputs for each tool
+tools/ 
 
 
 ---
