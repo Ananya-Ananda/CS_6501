@@ -22,10 +22,10 @@ benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) 
    git clone https://github.com/path/to/fuzzy-sat.git
    cd fuzzy-sat
    make
-Commands for Benchmarks
    
+### Commands for Benchmarks
 objdump
-   ```
+   ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/objdump.smt2 \
      --seed ../../../../seeds/small_exec.elf \
@@ -34,7 +34,7 @@ objdump
    ```
 
 readelf
-   ```
+   ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/readelf.smt2 \
      --seed ../../../../seeds/small_exec.elf \
@@ -43,7 +43,7 @@ readelf
    ```
 
 advmng
-   ```
+   ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/advmng.smt2 \
      --seed ../../../../seeds/small_exec.elf \
@@ -52,7 +52,7 @@ advmng
    ```
 
 optipng
-   ```
+   ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/optipng.smt2 \
      --seed ../../../../seeds/small_exec.elf \
@@ -62,9 +62,9 @@ optipng
 
 ## 2. AFL++ w/ QSYM
 
-###Setup
+### Setup
 Install AFL++ dependencies:
-   ```
+   ```bash
    sudo apt-get update
    sudo apt-get install build-essential clang llvm
    ```
