@@ -25,43 +25,57 @@ benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) 
 Commands for Benchmarks
    
 objdump
-   ```bash
+   ```
    time ./fuzzy-solver \
      --query ../../../../benchmarks/objdump.smt2 \
      --seed ../../../../seeds/small_exec.elf \
      --out ../../../../output/fuzzy-sat/objdump.smt2 \
      --dsat --dproofs
+   ```
+
 readelf
+   ```
    time ./fuzzy-solver \
      --query ../../../../benchmarks/readelf.smt2 \
      --seed ../../../../seeds/small_exec.elf \
      --out ../../../../output/fuzzy-sat/readelf.smt2 \
      --dsat --dproofs
+   ```
+
 advmng
+   ```
+   time ./fuzzy-solver \
+     --query ../../../../benchmarks/advmng.smt2 \
+     --seed ../../../../seeds/small_exec.elf \
+     --out ../../../../output/fuzzy-sat/advmng.smt2 \
+     --dsat --dproofs
+   ```
 
-time ./fuzzy-solver \
-  --query ../../../../benchmarks/advmng.smt2 \
-  --seed ../../../../seeds/small_exec.elf \
-  --out ../../../../output/fuzzy-sat/advmng.smt2 \
-  --dsat --dproofs
 optipng
+   ```
+   time ./fuzzy-solver \
+     --query ../../../../benchmarks/optipng.smt2 \
+     --seed ../../../../seeds/small_exec.elf \
+     --out ../../../../output/fuzzy-sat/optipng.smt2 \
+     --dsat --dproofs
+   ```
 
-time ./fuzzy-solver \
-  --query ../../../../benchmarks/optipng.smt2 \
-  --seed ../../../../seeds/small_exec.elf \
-  --out ../../../../output/fuzzy-sat/optipng.smt2 \
-  --dsat --dproofs
-2. AFL++
+## 2. AFL++ w/ QSYM
 
-Setup
+###Setup
 Install AFL++ dependencies:
-sudo apt-get update
-sudo apt-get install build-essential clang llvm
+   ```
+   sudo apt-get update
+   sudo apt-get install build-essential clang llvm
+   ```
 Clone and build AFL++:
-git clone https://github.com/AFLplusplus/AFLplusplus.git
-cd AFLplusplus
-make
-sudo make install
+   ```
+   git clone https://github.com/AFLplusplus/AFLplusplus.git
+   cd AFLplusplus
+   make distrib
+   sudo make install
+   ```
+   
 Commands for Benchmarks
 objdump
 
