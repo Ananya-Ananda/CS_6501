@@ -69,102 +69,121 @@ Install AFL++ dependencies:
    sudo apt-get install build-essential clang llvm
    ```
 Clone and build AFL++:
-   ```
+   ```bash
    git clone https://github.com/AFLplusplus/AFLplusplus.git
    cd AFLplusplus
    make distrib
    sudo make install
    ```
    
-Commands for Benchmarks
-objdump
+### Commands for Benchmarks
 
+objdump
+```bash
 time afl-fuzz \
   -Q \
   -i ../../benchmarks/objdump/ \
   -o ../../output/afl++/objdump/ \
   -- ../../seeds/small_exec.elf
+```
 readelf
-
+```bash
 time afl-fuzz \
   -Q \
   -i ../../benchmarks/readelf/ \
   -o ../../output/afl++/readelf/ \
   -- ../../seeds/small_exec.elf
+```
 advmng
-
+```bash
 time afl-fuzz \
   -Q \
   -i ../../benchmarks/advmng/ \
   -o ../../output/afl++/advmng/ \
   -- ../../seeds/small_exec.elf
+```
 optipng
-
+```bash
 time afl-fuzz \
   -Q \
   -i ../../benchmarks/optipng/ \
   -o ../../output/afl++/optipng/ \
   -- ../../seeds/small_exec.elf
-3. QSYM
+```
+## 3. QSYM
 
-Setup
+### Setup
 Install QSYM dependencies:
+```bash
 sudo apt-get install python3-pip
 pip3 install -r requirements.txt
+```
 Clone the QSYM repository:
+```bash
 git clone https://github.com/sslab-gatech/qsym.git
 cd qsym
 make
-Commands for Benchmarks
+```
+### Commands for Benchmarks
 objdump
-
+```bash
 time ./qsym-afl \
   -Q \
   -i ../../benchmarks/objdump/ \
   -o ../../output/qsym/objdump/ \
   -- ../../seeds/small_exec.elf
+```
 readelf
-
+```bash
 time ./qsym-afl \
   -Q \
   -i ../../benchmarks/readelf/ \
   -o ../../output/qsym/readelf/ \
   -- ../../seeds/small_exec.elf
+```
 advmng
-
+```bash
 time ./qsym-afl \
   -Q \
   -i ../../benchmarks/advmng/ \
   -o ../../output/qsym/advmng/ \
   -- ../../seeds/small_exec.elf
+```
 optipng
-
+```bash
 time ./qsym-afl \
   -Q \
   -i ../../benchmarks/optipng/ \
   -o ../../output/qsym/optipng/ \
   -- ../../seeds/small_exec.elf
-4. LibKluzzer
+```
+## 4. LibKluzzer
 
-Setup
+### Setup
 Clone the LibKluzzer repository:
+```bash
 git clone https://github.com/path/to/LibKluzzer.git
 cd LibKluzzer
 make
-Commands for Benchmarks
+```
+### Commands for Benchmarks
 objdump
-
+```bash
 ./bin/LibKluzzer ../../benchmarks/objdump.c
+```
 readelf
-
+```bash
 ./bin/LibKluzzer ../../benchmarks/readelf.c
+```
 advmng
-
+```bash
 ./bin/LibKluzzer ../../benchmarks/advmng.c
+```
 optipng
-
+```bash
 ./bin/LibKluzzer ../../benchmarks/optipng.c
-Output Directory Structure
+```
+## Output Directory Structure
 
 Outputs will be organized as follows:
 
