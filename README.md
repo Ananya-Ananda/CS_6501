@@ -75,89 +75,58 @@ Clone and build AFL++:
    make distrib
    sudo make install
    ```
-   
-### Commands for Benchmarks
-
-**objdump**
-```bash
-time afl-fuzz \
-  -Q \
-  -i ../../benchmarks/objdump/ \
-  -o ../../output/afl++/objdump/ \
-  -- ../../seeds/small_exec.elf
-```
-**readelf**
-```bash
-time afl-fuzz \
-  -Q \
-  -i ../../benchmarks/readelf/ \
-  -o ../../output/afl++/readelf/ \
-  -- ../../seeds/small_exec.elf
-```
-**advmng**
-```bash
-time afl-fuzz \
-  -Q \
-  -i ../../benchmarks/advmng/ \
-  -o ../../output/afl++/advmng/ \
-  -- ../../seeds/small_exec.elf
-```
-**optipng**
-```bash
-time afl-fuzz \
-  -Q \
-  -i ../../benchmarks/optipng/ \
-  -o ../../output/afl++/optipng/ \
-  -- ../../seeds/small_exec.elf
-```
-## 3. QSYM
-
-### Setup
 Install QSYM dependencies:
-```bash
-sudo apt-get install python3-pip
-pip3 install -r requirements.txt
-```
+   ```bash
+   sudo apt-get install python3-pip
+   pip3 install -r requirements.txt
+   ```
 Clone the QSYM repository:
-```bash
-git clone https://github.com/sslab-gatech/qsym.git
-cd qsym
-make
-```
+   ```bash
+   git clone https://github.com/sslab-gatech/qsym.git
+   cd qsym
+   make
+   ```
 ### Commands for Benchmarks
 **objdump**
-```bash
-time ./qsym-afl \
-  -Q \
-  -i ../../benchmarks/objdump/ \
-  -o ../../output/qsym/objdump/ \
-  -- ../../seeds/small_exec.elf
-```
+   ```bash
+   time ./qsym-afl \
+     -Q \
+     -i ../../benchmarks/objdump/ \
+     -o ../../output/qsym/objdump/ \
+     -- ../../seeds/small_exec.elf
+
+   ```
+
 **readelf**
-```bash
-time ./qsym-afl \
-  -Q \
-  -i ../../benchmarks/readelf/ \
-  -o ../../output/qsym/readelf/ \
-  -- ../../seeds/small_exec.elf
-```
+   ```bash
+   time ./qsym-afl \
+     -Q \
+     -i ../../benchmarks/readelf/ \
+     -o ../../output/qsym/readelf/ \
+     -- ../../seeds/small_exec.elf
+
+   ```
+
 **advmng**
-```bash
-time ./qsym-afl \
-  -Q \
-  -i ../../benchmarks/advmng/ \
-  -o ../../output/qsym/advmng/ \
-  -- ../../seeds/small_exec.elf
-```
+   ```bash
+   time afl-fuzz \
+     -Q \
+     -i ../../benchmarks/advmng/ \
+     -o ../../output/afl++/advmng/ \
+     -- ../../seeds/small_exec.elf
+
+   ```
+
 **optipng**
-```bash
-time ./qsym-afl \
-  -Q \
-  -i ../../benchmarks/optipng/ \
-  -o ../../output/qsym/optipng/ \
-  -- ../../seeds/small_exec.elf
-```
-## 4. LibKluzzer
+   ```bash
+   time ./qsym-afl \
+     -Q \
+     -i ../../benchmarks/optipng/ \
+     -o ../../output/qsym/optipng/ \
+     -- ../../seeds/small_exec.elf
+
+   ```
+## 3. LibKluzzer
 
 ### Setup
 Clone the LibKluzzer repository:
