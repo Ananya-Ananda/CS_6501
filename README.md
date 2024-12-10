@@ -1,5 +1,5 @@
 # CS_6501
-## FUZZY-SAT------------------------------------------------------------------------------------------------------------------
+## FUZZY-SAT
 
 ## fuzzy-sat -> objdump.smt2
 time ./fuzzy-solver --query ../../../../benchmarks/objdump.smt2 --seed ../../../../seeds/small_exec.elf --out ../../../../output/fuzzy-sat/objdump.smt2 --dsat --dproofs
@@ -29,8 +29,5 @@ time ./qemuafl -Q -i ../../benchmarks/ -o ../../output/afl++/ -- ../../seeds/sma
 
 ### afl
 afl-fuzz -i ../../benchmarks/in/ -o ../../output/afl++/testc -- ./testc
-
-
-afl-clang++ -o readelf readelf.c
 
 afl-clang-fast -o readelf readelf.c
