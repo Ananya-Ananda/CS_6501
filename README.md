@@ -24,7 +24,7 @@ benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) 
    make
    
 ### Commands for Benchmarks
-objdump
+**objdump**
    ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/objdump.smt2 \
@@ -33,7 +33,7 @@ objdump
      --dsat --dproofs
    ```
 
-readelf
+**readelf**
    ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/readelf.smt2 \
@@ -42,7 +42,7 @@ readelf
      --dsat --dproofs
    ```
 
-advmng
+**advmng**
    ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/advmng.smt2 \
@@ -51,7 +51,7 @@ advmng
      --dsat --dproofs
    ```
 
-optipng
+**optipng**
    ```bash
    time ./fuzzy-solver \
      --query ../../../../benchmarks/optipng.smt2 \
@@ -78,7 +78,7 @@ Clone and build AFL++:
    
 ### Commands for Benchmarks
 
-objdump
+**objdump**
 ```bash
 time afl-fuzz \
   -Q \
@@ -86,7 +86,7 @@ time afl-fuzz \
   -o ../../output/afl++/objdump/ \
   -- ../../seeds/small_exec.elf
 ```
-readelf
+**readelf**
 ```bash
 time afl-fuzz \
   -Q \
@@ -94,7 +94,7 @@ time afl-fuzz \
   -o ../../output/afl++/readelf/ \
   -- ../../seeds/small_exec.elf
 ```
-advmng
+**advmng**
 ```bash
 time afl-fuzz \
   -Q \
@@ -102,7 +102,7 @@ time afl-fuzz \
   -o ../../output/afl++/advmng/ \
   -- ../../seeds/small_exec.elf
 ```
-optipng
+**optipng**
 ```bash
 time afl-fuzz \
   -Q \
@@ -125,7 +125,7 @@ cd qsym
 make
 ```
 ### Commands for Benchmarks
-objdump
+**objdump**
 ```bash
 time ./qsym-afl \
   -Q \
@@ -133,7 +133,7 @@ time ./qsym-afl \
   -o ../../output/qsym/objdump/ \
   -- ../../seeds/small_exec.elf
 ```
-readelf
+**readelf**
 ```bash
 time ./qsym-afl \
   -Q \
@@ -141,7 +141,7 @@ time ./qsym-afl \
   -o ../../output/qsym/readelf/ \
   -- ../../seeds/small_exec.elf
 ```
-advmng
+**advmng**
 ```bash
 time ./qsym-afl \
   -Q \
@@ -149,7 +149,7 @@ time ./qsym-afl \
   -o ../../output/qsym/advmng/ \
   -- ../../seeds/small_exec.elf
 ```
-optipng
+**optipng**
 ```bash
 time ./qsym-afl \
   -Q \
@@ -167,44 +167,19 @@ cd LibKluzzer
 make
 ```
 ### Commands for Benchmarks
-objdump
+**objdump**
 ```bash
 ./bin/LibKluzzer ../../benchmarks/objdump.c
 ```
-readelf
+**readelf**
 ```bash
 ./bin/LibKluzzer ../../benchmarks/readelf.c
 ```
-advmng
+**advmng**
 ```bash
 ./bin/LibKluzzer ../../benchmarks/advmng.c
 ```
-optipng
+**optipng**
 ```bash
 ./bin/LibKluzzer ../../benchmarks/optipng.c
 ```
-## Output Directory Structure
-
-Outputs will be organized as follows:
-
-output/
-├── afl++/
-│   ├── objdump/
-│   ├── readelf/
-│   ├── advmng/
-│   └── optipng/
-├── fuzzy-sat/
-│   ├── objdump.smt2
-│   ├── readelf.smt2
-│   ├── advmng.smt2
-│   └── optipng.smt2
-├── qsym/
-│   ├── objdump/
-│   ├── readelf/
-│   ├── advmng/
-│   └── optipng/
-└── LibKluzzer/
-    ├── objdump_output/
-    ├── readelf_output/
-    ├── advmng_output/
-    └── optipng_output/
