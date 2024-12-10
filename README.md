@@ -23,20 +23,20 @@ benchmarks/ # Contains benchmark files (e.g., objdump.smt2, readelf.smt2, etc.) 
    cd fuzzy-sat
    make
 Commands for Benchmarks
+   
 objdump
-
-time ./fuzzy-solver \
-  --query ../../../../benchmarks/objdump.smt2 \
-  --seed ../../../../seeds/small_exec.elf \
-  --out ../../../../output/fuzzy-sat/objdump.smt2 \
-  --dsat --dproofs
+   ```bash
+   time ./fuzzy-solver \
+     --query ../../../../benchmarks/objdump.smt2 \
+     --seed ../../../../seeds/small_exec.elf \
+     --out ../../../../output/fuzzy-sat/objdump.smt2 \
+     --dsat --dproofs
 readelf
-
-time ./fuzzy-solver \
-  --query ../../../../benchmarks/readelf.smt2 \
-  --seed ../../../../seeds/small_exec.elf \
-  --out ../../../../output/fuzzy-sat/readelf.smt2 \
-  --dsat --dproofs
+   time ./fuzzy-solver \
+     --query ../../../../benchmarks/readelf.smt2 \
+     --seed ../../../../seeds/small_exec.elf \
+     --out ../../../../output/fuzzy-sat/readelf.smt2 \
+     --dsat --dproofs
 advmng
 
 time ./fuzzy-solver \
